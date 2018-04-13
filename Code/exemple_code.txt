@@ -1,0 +1,35 @@
+whichFilter = 'gabor'; %instruction appartenant au filtre de gabor (spécification du type de filtre)
+
+init_HMAX;            %initialisation du filtre
+
+for i=1:50           %boucle qui parcours les individus de 1 à 50
+  
+   tc=[];            %initialisation d'une matrice pour mettre les vecteurs obtenus par le filtre de gabor
+   
+  for l=1:6         %boucle qui parcours les images des individus un par un de 1 à 6(augmenter le nombre d'aprés la base que vous avez
+    
+    s=num2str(i);     %fonction qui fait la conversion d'un entier en chaine de caracteres
+    ss=num2str(l);
+    
+    s1=['E:\BDD\Word s ]; %concatenation du chemin d'accés de l'image à l'individu (changer le chemin d'aprés votre pc
+     
+    s1=[s1 '\' ss '.bmp']; %concatenation de la chaine S1 avec le numero de l'image
+    
+    disp(s1); %affichage du chemin
+    
+
+    I=imread(s1);   %lecture de l'image
+    
+   
+    img= imresize(img,[100 100]); % pour rendre l'image carré
+ 
+    code=calcCSSITC2new(img,0);  %la fonction du filtre de gabor qui revoi comme resultat un vecteur qui représente l'image
+    
+    tc=[tc;code];                % ajout du vecteur à la matrice tc pour la sauvegarde
+  end;
+
+ fname=['E:\BDD\appr' num2str(i)];  %exemple pour la sauvegarde de la matrice des six images d'un individus i 
+                                     %fname est la chaine de caractere qui specifie le chemin de sauvegarde
+ fname=[fname '.mat'];               % le fichier résultat va etre sous la forme appr1.mat pour l'individu 1 ect
+ save (fname, 'tc');                 % fonction qui sauvegarde la matrice tc dans le fichier spécifié par fname
+end;
